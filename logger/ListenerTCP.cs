@@ -63,6 +63,12 @@ namespace logger
 				string name = Configuration.Root +
 					Path.DirectorySeparatorChar + file + Path.DirectorySeparatorChar + 
 						file + "_" + section + ".txt";
+				if (section == "" || section == null)
+				{
+					name = Configuration.Root +
+						Path.DirectorySeparatorChar + file + Path.DirectorySeparatorChar + 
+							file + ".txt";
+				}
 				Writer.InsertText (DateTime.Now.ToString () + ": " + log, name);
 				return true;
 			} catch (Exception fail)
