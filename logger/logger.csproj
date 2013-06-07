@@ -39,6 +39,8 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Terminal.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Writer.cs" />
+    <Compile Include="ListenerTCP.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

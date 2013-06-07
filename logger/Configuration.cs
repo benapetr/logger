@@ -50,6 +50,11 @@ namespace logger
 		public static string Root = null;
 
 		/// <summary>
+		/// password.
+		/// </summary>
+		public static string Password = null;
+
+		/// <summary>
 		/// The configuration file.
 		/// </summary>
 		public static string ConfigurationFile = null;
@@ -80,6 +85,9 @@ namespace logger
 			{
 				switch(item.Name.ToLower())
 				{
+				case "root":
+					Configuration.Root = item.InnerText;
+					break;
 				case "port":
 					Configuration.Port = int.Parse(item.InnerText);
 					break;

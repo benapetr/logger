@@ -41,11 +41,12 @@ namespace logger
 			{
 				if (Configuration.Root == null)
 				{
-					Log ("FATAL: Undefined storage type");
+					Log ("FATAL: Undefined storage root");
+					return false;
 				}
 				if (System.IO.Directory.Exists(Configuration.Root))
 				{
-
+					return true;
 				}
 				Log ("FATAL: Storage directory: " + Configuration.Root + " doesn't exist");
 				return false;
@@ -61,8 +62,14 @@ namespace logger
 				Log ("Logger " + Configuration.Version + " starting");
 				if (CheckStorage ())
 				{
-
+					DebugLog ("Starting writer");
+					Writer.Init ();
+					DebugLog ("Starting tcp listener");
+					ListenerTCP.Exec ();
+					return;
 				}
+				Log ("FATAL: Error loading storage");
+				return;
 			} catch (Exception fail)
 			{
 				exceptionHandler(fail);
