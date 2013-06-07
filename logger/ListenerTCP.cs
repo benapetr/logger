@@ -36,6 +36,7 @@ namespace logger
 		{
 			if (name == null || name == "")
 			{
+				MainClass.DebugLog("Empty project name, ignoring");
 				return false;
 			}
 			if (name.Contains (":") ||
@@ -46,6 +47,7 @@ namespace logger
 			    name.Contains("?") ||
 			    name.Contains(""))
 			{
+				MainClass.DebugLog("Dangerous char in project name: >>" + name + "<<");
 				return false;
 			}
 			return true;
