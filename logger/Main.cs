@@ -57,7 +57,7 @@ namespace logger
 
 		public static void Main (string[] args)
 		{
-			if (!Terminal.Parse(args))
+			if (Terminal.Parse(args))
 			{
 				return;
 			}
