@@ -57,6 +57,10 @@ namespace logger
 
 		public static void Main (string[] args)
 		{
+			if (!Terminal.Parse(args))
+			{
+				return;
+			}
 			try
 			{
 				Log ("Logger " + Configuration.Version + " starting");
