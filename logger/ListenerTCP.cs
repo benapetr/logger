@@ -60,7 +60,9 @@ namespace logger
 				{
 					Directory.CreateDirectory(Configuration.Root + Path.DirectorySeparatorChar + file);
 				}
-				string name = file + "_" + section + ".txt";
+				string name = Configuration.Root +
+					Path.DirectorySeparatorChar + file + Path.DirectorySeparatorChar + 
+						file + "_" + section + ".txt";
 				Writer.InsertText (DateTime.Now.ToString () + ": " + log, name);
 				return true;
 			} catch (Exception fail)
