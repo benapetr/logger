@@ -32,7 +32,7 @@ namespace logger
 			}
 		}
 
-		private bool ValidName(string name)
+		private static bool ValidName(string name)
 		{
 			if (name == null || name == "")
 			{
@@ -97,7 +97,7 @@ namespace logger
 						command = command.Substring(0, command.IndexOf(" "));
 						if (parameters.Contains (" "))
 						{
-							list.AddRange (parameters.Split (" "));
+							list.AddRange (parameters.Split (' '));
 						}
 					}
 
@@ -113,10 +113,10 @@ namespace logger
 						}
 						string project = list[0];
 						string section = null;
-						if (file.Contains (":"))
+						if (project.Contains (":"))
 						{
-							section = file.Substring (file.IndexOf(":") + 1);
-							file = file.Substring(0, file.IndexOf(":"));
+							section = project.Substring (project.IndexOf(":") + 1);
+							project = project.Substring(0, project.IndexOf(":"));
 							if (!ValidName(section))
 							{
 								Writer.WriteLine ("ERROR: you provided invalid section name");
@@ -124,7 +124,7 @@ namespace logger
 								continue;
 							}
 						}
-						if (!ValidName(File))
+						if (!ValidName(project))
 						{
 							Writer.WriteLine ("ERROR: you provided invalid section name");
 							Writer.Flush();

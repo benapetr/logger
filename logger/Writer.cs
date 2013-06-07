@@ -9,7 +9,7 @@ namespace logger
 {
 	public class Writer
 	{
-		public class Line : IComparable
+		public class Line
 		{
 			public string text = null;
 			public string file = null;
