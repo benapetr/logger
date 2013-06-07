@@ -60,6 +60,10 @@ namespace logger
 				{
 					Directory.CreateDirectory(Configuration.Root + Path.DirectorySeparatorChar + file);
 				}
+				if (type == 1)
+				{
+					section = section + "_" + DateTime.Now.ToString ("yyyy_MM_dd");
+				}
 				string name = Configuration.Root +
 					Path.DirectorySeparatorChar + file + Path.DirectorySeparatorChar + 
 						file + "_" + section + ".txt";
@@ -141,7 +145,7 @@ namespace logger
 						}
 
 						int type = 0;
-						string l = text.Substring(list[0].Length + list[1].Length + command.Length + 2);
+						string l = text.Substring(list[0].Length + list[1].Length + command.Length + 3);
 
 						if (!int.TryParse (list[1], out type))
 						{
