@@ -15,6 +15,9 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
 
+using System.Xml;
+using System.IO;
+using System.Collections.Generic;
 using System;
 
 namespace logger
@@ -78,7 +81,7 @@ namespace logger
 				switch(item.Name.ToLower())
 				{
 				case "port":
-					Configuration.Port = int.Parse(item.
+					Configuration.Port = int.Parse(item.InnerText);
 					break;
 				}
 			}
