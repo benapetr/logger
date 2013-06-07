@@ -156,6 +156,8 @@ namespace logger
 						OpenConnections--;
 						return;
 					}
+					Writer.WriteLine ("ERROR");
+					Writer.Flush();
 				}
 			} catch (Exception fail)
 			{
