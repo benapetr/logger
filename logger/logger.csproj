@@ -41,6 +41,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Writer.cs" />
     <Compile Include="ListenerTCP.cs" />
+    <Compile Include="ListenerUDP.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

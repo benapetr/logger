@@ -68,6 +68,8 @@ namespace logger
 				{
 					DebugLog ("Starting writer");
 					Writer.Init ();
+					DebugLog ("Starting udp listener");
+					ListenerUDP.Init ();
 					DebugLog ("Starting tcp listener");
 					ListenerTCP.Exec ();
 					return;

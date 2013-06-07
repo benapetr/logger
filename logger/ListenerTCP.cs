@@ -32,7 +32,7 @@ namespace logger
 			}
 		}
 
-		private static bool ValidName(string name)
+		public static bool ValidName(string name)
 		{
 			if (name == null || name == "")
 			{
@@ -52,7 +52,7 @@ namespace logger
 			return true;
 		}
 
-		private static bool Write(string log, string file, string section, int type)
+		public static bool Write(string log, string file, string section, int type)
 		{
 			try
 			{
