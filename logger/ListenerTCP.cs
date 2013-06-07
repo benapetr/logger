@@ -141,7 +141,7 @@ namespace logger
 						}
 
 						int type = 0;
-						string l = text.Substring(list[0].Length + list[1].Length + 2);
+						string l = text.Substring(list[0].Length + list[1].Length + command.Length + 2);
 
 						if (!int.TryParse (list[1], out type))
 						{
