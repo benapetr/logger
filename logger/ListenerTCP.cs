@@ -44,8 +44,7 @@ namespace logger
 			    name.Contains(" ") ||
 			    name.Contains("/") ||
 			    name.Contains("\\") ||
-			    name.Contains("?") ||
-			    name.Contains(""))
+			    name.Contains("?"))
 			{
 				MainClass.DebugLog("Dangerous char in project name: >>" + name + "<<");
 				return false;
