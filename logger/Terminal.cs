@@ -27,7 +27,7 @@ namespace logger
 		{
 			Console.WriteLine ("<configuration>\n" +
 			                   "  <port>"+ Configuration.Port.ToString () +"</port>\n" +
-			                   "  <root>"+ Configuration.Root.ToString () +"</root>\n" +
+			                   "  <root>/var/logger</root>\n" +
 			                   //"  <userdb>"+ Configuration.UserDB.ToString () +"</userdb>\n" +
 			                   "</configuration>\n");
 		}
