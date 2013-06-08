@@ -66,6 +66,7 @@ namespace logger
 
 					switch (command.ToLower ())
 					{
+					case "n":
 					case "s":
 					case "store":
 						if (list.Count < 3)
@@ -106,8 +107,11 @@ namespace logger
 
 						if (Logger.Write (l, project, section, type))
 						{
-							Writer.WriteLine ("STORED");
-							Writer.Flush();
+							if (!command == "n")
+							{
+								Writer.WriteLine ("STORED");
+								Writer.Flush();
+							}
 							continue;
 						}
 
