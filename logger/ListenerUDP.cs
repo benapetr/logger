@@ -82,13 +82,13 @@ namespace logger
 							{
 								section = project.Substring (project.IndexOf(":") + 1);
 								project = project.Substring(0, project.IndexOf(":"));
-								if (!ListenerTCP.ValidName(section))
+								if (!Logger.ValidName(section))
 								{
 									MainClass.DebugLog(Remote.ToString() + ":   ERROR: you provided invalid section name");
 									continue;
 								}
 							}
-							if (!ListenerTCP.ValidName(project))
+							if (!Logger.ValidName(project))
 							{
 								MainClass.DebugLog(Remote.ToString() + ":   ERROR: you provided invalid section name");
 								continue;
@@ -103,7 +103,7 @@ namespace logger
 								continue;
 							}
 							
-							if (ListenerTCP.Write (l, project, section, type))
+							if (Logger.Write (l, project, section, type))
 							{
 								MainClass.DebugLog ("STORED");
 								continue;

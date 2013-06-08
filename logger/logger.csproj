@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -42,6 +43,7 @@
     <Compile Include="Writer.cs" />
     <Compile Include="ListenerTCP.cs" />
     <Compile Include="ListenerUDP.cs" />
+    <Compile Include="Logger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

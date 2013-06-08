@@ -32,56 +32,6 @@ namespace logger
 			}
 		}
 
-		public static bool ValidName(string name)
-		{
-			if (name == null || name == "")
-			{
-				MainClass.DebugLog("Empty project name, ignoring");
-				return false;
-			}
-			if (name.Contains (":") ||
-			    name.Contains("*") ||
-			    name.Contains(" ") ||
-			    name.Contains("/") ||
-			    name.Contains("\\") ||
-			    name.Contains("?"))
-			{
-				MainClass.DebugLog("Dangerous char in project name: >>" + name + "<<");
-				return false;
-			}
-			return true;
-		}
-
-		public static bool Write(string log, string file, string section, int type)
-		{
-			try
-			{
-				if (!Directory.Exists(Configuration.Root + Path.DirectorySeparatorChar + file))
-				{
-					Directory.CreateDirectory(Configuration.Root + Path.DirectorySeparatorChar + file);
-				}
-				if (type == 1)
-				{
-					section = section + "_" + DateTime.Now.ToString ("yyyy_MM_dd");
-				}
-				string name = Configuration.Root +
-					Path.DirectorySeparatorChar + file + Path.DirectorySeparatorChar + 
-						file + "_" + section + ".txt";
-				if (section == "" || section == null)
-				{
-					name = Configuration.Root +
-						Path.DirectorySeparatorChar + file + Path.DirectorySeparatorChar + 
-							file + ".txt";
-				}
-				Writer.InsertText (DateTime.Now.ToString () + ": " + log, name);
-				return true;
-			} catch (Exception fail)
-			{
-				MainClass.exceptionHandler(fail);
-			}
-			return false;
-		}
-
 		private static void HandleClient(object data)
 		{
 			try
@@ -130,14 +80,14 @@ namespace logger
 						{
 							section = project.Substring (project.IndexOf(":") + 1);
 							project = project.Substring(0, project.IndexOf(":"));
-							if (!ValidName(section))
+							if (!Logger.ValidName(section))
 							{
 								Writer.WriteLine ("ERROR: you provided invalid section name");
 								Writer.Flush();
 								continue;
 							}
 						}
-						if (!ValidName(project))
+						if (!Logger.ValidName(project))
 						{
 							Writer.WriteLine ("ERROR: you provided invalid section name");
 							Writer.Flush();
@@ -154,7 +104,7 @@ namespace logger
 							continue;
 						}
 
-						if (Write (l, project, section, type))
+						if (Logger.Write (l, project, section, type))
 						{
 							Writer.WriteLine ("STORED");
 							Writer.Flush();
