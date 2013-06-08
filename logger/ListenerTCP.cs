@@ -64,6 +64,12 @@ namespace logger
 						}
 					}
 
+					string project = null;
+					string section = null;
+					string l = null;
+					string token = null;
+					int type = 0;
+
 					switch (command.ToLower ())
 					{
 					case "n":
@@ -75,8 +81,8 @@ namespace logger
 							Writer.Flush();
 							continue;
 						}
-						string project = list[0];
-						string section = null;
+						project = list[0];
+						section = null;
 						if (project.Contains (":"))
 						{
 							section = project.Substring (project.IndexOf(":") + 1);
@@ -95,8 +101,15 @@ namespace logger
 							continue;
 						}
 
-						int type = 0;
-						string l = text.Substring(list[0].Length + list[1].Length + command.Length + 3);
+						if (Auth.RequireLogin (project))
+						{
+							Writer.WriteLine ("ERROR: you need to authenticate to log here");
+							Writer.Flush();
+							continue;
+						}
+
+						type = 0;
+						l = text.Substring(list[0].Length + list[1].Length + command.Length + 3);
 
 						if (!int.TryParse (list[1], out type))
 						{
@@ -115,6 +128,65 @@ namespace logger
 							continue;
 						}
 
+						Writer.WriteLine ("ERROR: internal error, check debug log");
+						Writer.Flush();
+						continue;
+					case "a":
+						if (list.Count < 4)
+						{
+							Writer.WriteLine ("ERROR: you are missing parameters for this command");
+							Writer.Flush();
+							continue;
+						}
+						project = list[0];
+						section = null;
+						if (project.Contains (":"))
+						{
+							section = project.Substring (project.IndexOf(":") + 1);
+							project = project.Substring(0, project.IndexOf(":"));
+							if (!Logger.ValidName(section))
+							{
+								Writer.WriteLine ("ERROR: you provided invalid section name");
+								Writer.Flush();
+								continue;
+							}
+						}
+						if (!Logger.ValidName(project))
+						{
+							Writer.WriteLine ("ERROR: you provided invalid section name");
+							Writer.Flush();
+							continue;
+						}
+						
+						token = list[2];
+						
+						type = 0;
+						l = text.Substring(list[0].Length + list[1].Length + command.Length + token.Length + 4);
+
+						if (!Auth.Login (project, token))
+						{
+							Writer.WriteLine ("ERROR: you provided invalid token");
+							Writer.Flush();
+							continue;
+						}
+
+						if (!int.TryParse (list[1], out type))
+						{
+							Writer.WriteLine ("ERROR: you provided invalid log type");
+							Writer.Flush();
+							continue;
+						}
+						
+						if (Logger.Write (l, project, section, type))
+						{
+							if (command != "n")
+							{
+								Writer.WriteLine ("STORED");
+								Writer.Flush();
+							}
+							continue;
+						}
+						
 						Writer.WriteLine ("ERROR: internal error, check debug log");
 						Writer.Flush();
 						continue;

@@ -59,6 +59,16 @@ namespace logger
 		/// </summary>
 		public static string ConfigurationFile = null;
 
+		/// <summary>
+		/// The require auth.
+		/// </summary>
+		public static bool RequireAuth = false;
+
+		/// <summary>
+		/// user DB
+		/// </summary>
+		public static string UserDB = null;
+
 		public enum StorageType
 		{
 			file,
@@ -90,6 +100,12 @@ namespace logger
 					break;
 				case "port":
 					Configuration.Port = int.Parse(item.InnerText);
+					break;
+				case "user":
+					Configuration.UserDB = item.InnerText;
+					break;
+				case "requireauth":
+					Configuration.RequireAuth = bool.Parse(item.InnerText);
 					break;
 				}
 			}

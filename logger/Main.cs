@@ -66,6 +66,10 @@ namespace logger
 				Log ("Logger " + Configuration.Version + " starting");
 				if (CheckStorage ())
 				{
+					if ( !Auth.Init() )
+					{
+						return;
+					}
 					DebugLog ("Starting writer");
 					Writer.Init ();
 					DebugLog ("Starting udp listener");
