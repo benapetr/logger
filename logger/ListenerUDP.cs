@@ -66,7 +66,13 @@ namespace logger
 								list.AddRange (parameters.Split (' '));
 							}
 						}
-						
+
+						string project = null;
+						string section = null;
+						int type = 0;
+						string token = null;
+						string l = null;
+
 						switch (command.ToLower ())
 						{
 						case "s":
@@ -76,8 +82,8 @@ namespace logger
 								MainClass.DebugLog(Remote.ToString()+ ":   ERROR: you are missing parameters for this command");
 								continue;
 							}
-							string project = list[0];
-							string section = null;
+							project = list[0];
+							section = null;
 							if (project.Contains (":"))
 							{
 								section = project.Substring (project.IndexOf(":") + 1);
@@ -93,9 +99,63 @@ namespace logger
 								MainClass.DebugLog(Remote.ToString() + ":   ERROR: you provided invalid section name");
 								continue;
 							}
+
+							if (Auth.RequireLogin (project))
+							{
+								MainClass.DebugLog(Remote.ToString() + ":   ERROR: you need to authenticate to log here");
+								continue;
+							}
+
+							type = 0;
+							l = text.Substring(list[0].Length + list[1].Length + command.Length + 3);
 							
-							int type = 0;
-							string l = text.Substring(list[0].Length + list[1].Length + command.Length + 3);
+							if (!int.TryParse (list[1], out type))
+							{
+								MainClass.DebugLog ("ERROR: you provided invalid log type");
+								continue;
+							}
+							
+							if (Logger.Write (l, project, section, type))
+							{
+								MainClass.DebugLog ("STORED");
+								continue;
+							}
+							
+							MainClass.DebugLog ("ERROR: internal error, check debug log");
+							continue;
+						case "a":
+							if (list.Count < 4)
+							{
+								MainClass.DebugLog(Remote.ToString()+ ":   ERROR: you are missing parameters for this command");
+								continue;
+							}
+							project = list[0];
+							section = null;
+							token = list[2];
+							if (project.Contains (":"))
+							{
+								section = project.Substring (project.IndexOf(":") + 1);
+								project = project.Substring(0, project.IndexOf(":"));
+								if (!Logger.ValidName(section))
+								{
+									MainClass.DebugLog(Remote.ToString() + ":   ERROR: you provided invalid section name");
+									continue;
+								}
+							}
+							if (!Logger.ValidName(project))
+							{
+								MainClass.DebugLog(Remote.ToString() + ":   ERROR: you provided invalid section name");
+								continue;
+							}
+
+							if (!Auth.Login (project, token))
+							{
+								MainClass.DebugLog(Remote.ToString() + ":  ERROR: you provided invalid token");
+								continue;
+							}
+							
+							type = 0;
+							l = text.Substring(list[0].Length + list[1].Length + command.Length + token.Length + 4);
 							
 							if (!int.TryParse (list[1], out type))
 							{
