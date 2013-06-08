@@ -107,7 +107,7 @@ namespace logger
 
 						if (Logger.Write (l, project, section, type))
 						{
-							if (!command == "n")
+							if (command != "n")
 							{
 								Writer.WriteLine ("STORED");
 								Writer.Flush();
