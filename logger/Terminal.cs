@@ -28,7 +28,8 @@ namespace logger
 			Console.WriteLine ("<configuration>\n" +
 			                   "  <port>"+ Configuration.Port.ToString () +"</port>\n" +
 			                   "  <root>/var/logger</root>\n" +
-			                   //"  <userdb>"+ Configuration.UserDB.ToString () +"</userdb>\n" +
+			                   "  <requireauth>false</requireauth>\n" +
+			                   "  <user>userdata</user>\n" +
 			                   "</configuration>\n");
 		}
 		

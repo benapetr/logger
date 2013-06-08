@@ -75,6 +75,12 @@ namespace logger
 					case "n":
 					case "s":
 					case "store":
+						if (Configuration.RequireAuth)
+						{
+							Writer.WriteLine ("ERROR: you need to authenticate to log here");
+							Writer.Flush();
+							continue;
+						}
 						if (list.Count < 3)
 						{
 							Writer.WriteLine ("ERROR: you are missing parameters for this command");

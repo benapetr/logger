@@ -77,6 +77,10 @@ namespace logger
 						{
 						case "s":
 						case "store":
+							if (Configuration.RequireAuth)
+							{
+								continue;
+							}
 							if (list.Count < 3)
 							{
 								MainClass.DebugLog(Remote.ToString()+ ":   ERROR: you are missing parameters for this command");
